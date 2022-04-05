@@ -79,7 +79,11 @@
                 <h2 class="title title--small sheet__title">Выберите тесто</h2>
 
                 <div class="sheet__content dough">
-                  <label class="dough__input dough__input--light">
+                  <label
+                    class="dough__input dough__input--light"
+                    v-for="dough of Pizza.dough"
+                    :key="dough.id"
+                  >
                     <input
                       type="radio"
                       name="dought"
@@ -87,19 +91,11 @@
                       class="visually-hidden"
                       checked
                     />
-                    <b>Тонкое</b>
-                    <span>Из твердых сортов пшеницы</span>
-                  </label>
-
-                  <label class="dough__input dough__input--large">
-                    <input
-                      type="radio"
-                      name="dought"
-                      value="large"
-                      class="visually-hidden"
-                    />
-                    <b>Толстое</b>
-                    <span>Из твердых сортов пшеницы</span>
+                    <b>
+                      {{ dough.name }}
+                      <img :src="dough.image" class="dough__input-img" alt="" />
+                    </b>
+                    <span>{{ dough.description }}</span>
                   </label>
                 </div>
               </div>
@@ -110,33 +106,20 @@
                 <h2 class="title title--small sheet__title">Выберите размер</h2>
 
                 <div class="sheet__content diameter">
-                  <label class="diameter__input diameter__input--small">
+                  <label
+                    class="diameter__input diameter__input--big"
+                    v-for="size of Pizza.sizes"
+                    :key="size.id"
+                  >
                     <input
                       type="radio"
                       name="diameter"
                       value="small"
                       class="visually-hidden"
                     />
-                    <span>23 см</span>
-                  </label>
-                  <label class="diameter__input diameter__input--normal">
-                    <input
-                      type="radio"
-                      name="diameter"
-                      value="normal"
-                      class="visually-hidden"
-                      checked
-                    />
-                    <span>32 см</span>
-                  </label>
-                  <label class="diameter__input diameter__input--big">
-                    <input
-                      type="radio"
-                      name="diameter"
-                      value="big"
-                      class="visually-hidden"
-                    />
-                    <span>45 см</span>
+                    <span>
+                      {{ size.name }}
+                    </span>
                   </label>
                 </div>
               </div>
@@ -152,13 +135,13 @@
                   <div class="ingredients__sauce">
                     <p>Основной соус:</p>
 
-                    <label class="radio ingredients__input">
+                    <label
+                      class="radio ingredients__input"
+                      v-for="sauce of Pizza.sauces"
+                      :key="sauce.id"
+                    >
                       <input type="radio" name="sauce" value="tomato" checked />
-                      <span>Томатный</span>
-                    </label>
-                    <label class="radio ingredients__input">
-                      <input type="radio" name="sauce" value="creamy" />
-                      <span>Сливочный</span>
+                      <span>{{ sauce.name }}</span>
                     </label>
                   </div>
 
@@ -269,5 +252,19 @@ export default {
   background-repeat: no-repeat;
   background-position: center;
   background-size: 80% 80%;
+}
+.dough__input-img {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(0, -50%);
+  width: 36 px;
+  height: 36 px;
+  content: "";
+  transition: 0.3s;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 </style>
